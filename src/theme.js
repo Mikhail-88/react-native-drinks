@@ -1,0 +1,5 @@
+export const THEME = {
+  SCREEN_BG_COLOR: '#E5E5E5',
+  BUTTON_BG_COLOR: '#272727',
+  TEXT_COLOR: '#7E7E7E'
+};

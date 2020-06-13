@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "react-native-drinks",
+    "name": "Drinks List",
     "slug": "react-native-drinks",
+    "privacy": "public",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
