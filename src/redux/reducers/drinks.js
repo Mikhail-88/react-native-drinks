@@ -27,16 +27,20 @@ const handlers = {
   }),
   [SELECTED_FILTERS]: state => ({
     ...state,
-    selectedFiltersList: state.filtersList.filter(item => item.checked),
     drinksData: [],
     page: 0
   }),
-  [CHANGE_CHECKED]: (state, action) => ({
-    ...state,
-    filtersList: state.filtersList.map(
+  [CHANGE_CHECKED]: (state, action) => {
+    const newList = state.filtersList.map(
       item => item.id === action.payload ? {...item, checked: !item.checked} : item
-    )
-  }),
+    );
+
+    return {
+      ...state,
+      filtersList: newList,
+      selectedFiltersList: newList.filter(item => item.checked)
+    }
+  },
   [ADD_PAGE]: state => ({
     ...state,
     page: state.page + 1

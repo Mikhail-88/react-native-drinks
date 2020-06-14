@@ -17,7 +17,7 @@ import { DrinkItem } from '../components/DrinkItem';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { filtersLoaded, fetchDrinksData } from '../redux/actions/drinks';
 
-export const MainScreen = ({ navigation }) => {
+export const MainScreen = () => {
   const isLoading = useSelector(state => state.drinks.isLoading);
   const hasError = useSelector(state => state.drinks.hasError);
   const drinksData = useSelector(state => state.drinks.drinksData);
@@ -28,7 +28,7 @@ export const MainScreen = ({ navigation }) => {
   useEffect(() => {
     !filtersList.length && dispatch(filtersLoaded());
     dispatch(fetchDrinksData());
-  }, [filtersList]);
+  }, [filtersList.length]);
 
   const handleScrollToTop = () => {
     sectionListRef.scrollToLocation({
@@ -42,11 +42,6 @@ export const MainScreen = ({ navigation }) => {
   const handleLoadMore = useCallback(() =>
     dispatch(fetchDrinksData()),
     [dispatch, fetchDrinksData]
-  );
-
-  const handleNavigateFilter = useCallback(() =>
-    navigation.navigate('Filter'),
-    [navigation]
   );
 
   const handleRestart = useCallback(() =>
@@ -94,21 +89,6 @@ export const MainScreen = ({ navigation }) => {
     }
   };
 
-  const renderEmptyFooter = () => {
-    if (!isLoading && filtersList.length && !drinksData.length) {
-      return (
-        <View>
-          <Text style={styles.text}>The list of drinks is empty!</Text>
-          <TouchableOpacity onPress={handleNavigateFilter}>
-            <Text style={styles.textLink}>Let's choose something!</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    }
-
-    return null;
-  };
-
   return (
     <SafeAreaView style={styles.wrap}>
       <SectionList
@@ -121,7 +101,6 @@ export const MainScreen = ({ navigation }) => {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
-        ListEmptyComponent={renderEmptyFooter}
         ref={ref => (sectionListRef = ref)}
         initialNumToRender={5}
       />
